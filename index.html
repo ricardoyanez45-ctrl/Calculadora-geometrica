@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Geométrica Universitaria</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#0f172a,#1e3a8a);
+      color:#fff;
+      min-height:100vh;
+      padding:20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:10px;
+      font-size:2.5rem;
+    }
+
+    .subtitle{
+      text-align:center;
+      margin-bottom:30px;
+      color:#cbd5e1;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:#ffffff10;
+      backdrop-filter:blur(10px);
+      border:1px solid #ffffff20;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.3);
+      transition:transform .3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card h2{
+      margin-bottom:15px;
+      color:#facc15;
+      text-align:center;
+    }
+
+    label{
+      display:block;
+      margin-top:10px;
+      margin-bottom:5px;
+      font-size:0.95rem;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      border:none;
+      border-radius:10px;
+      font-size:1rem;
+    }
+
+    button{
+      width:100%;
+      margin-top:15px;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:#22c55e;
+      color:white;
+      font-size:1rem;
+      cursor:pointer;
+      transition:background .3s;
+    }
+
+    button:hover{
+      background:#16a34a;
+    }
+
+    .resultado{
+      margin-top:15px;
+      background:#00000030;
+      padding:12px;
+      border-radius:12px;
+      font-size:1rem;
+      min-height:60px;
+    }
+
+    footer{
+      text-align:center;
+      margin-top:30px;
+      color:#cbd5e1;
+      font-size:0.9rem;
+    }
+
+    .formula{
+      font-size:0.85rem;
+      color:#e2e8f0;
+      margin-top:5px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📐 Calculadora Geométrica Universitaria</h1>
+  <p class="subtitle">Herramienta interactiva para calcular áreas y perímetros de figuras geométricas</p>
+
+  <div class="grid">
+
+    <!-- TRIÁNGULO -->
+    <div class="card">
+      <h2>🔺 Triángulo</h2>
+      <div class="formula">Área = (base × altura) / 2</div>
+
+      <label>Base</label>
+      <input type="number" id="baseTri">
+
+      <label>Altura</label>
+      <input type="number" id="alturaTri">
+
+      <label>Lado 1</label>
+      <input type="number" id="l1Tri">
+
+      <label>Lado 2</label>
+      <input type="number" id="l2Tri">
+
+      <label>Lado 3</label>
+      <input type="number" id="l3Tri">
+
+      <button onclick="calcularTriangulo()">Calcular</button>
+
+      <div class="resultado" id="resTri"></div>
+    </div>
+
+    <!-- CUADRILÁTERO -->
+    <div class="card">
+      <h2>⬛ Cuadrilátero</h2>
+      <div class="formula">Área = largo × ancho</div>
+
+      <label>Largo</label>
+      <input type="number" id="largo">
+
+      <label>Ancho</label>
+      <input type="number" id="ancho">
+
+      <button onclick="calcularCuadrilatero()">Calcular</button>
+
+      <div class="resultado" id="resCuad"></div>
+    </div>
+
+    <!-- POLÍGONO REGULAR -->
+    <div class="card">
+      <h2>🔷 Polígono Regular</h2>
+      <div class="formula">Área = (Perímetro × apotema) / 2</div>
+
+      <label>Número de lados</label>
+      <input type="number" id="nLados">
+
+      <label>Longitud de un lado</label>
+      <input type="number" id="ladoPol">
+
+      <label>Apotema</label>
+      <input type="number" id="apotema">
+
+      <button onclick="calcularPoligono()">Calcular</button>
+
+      <div class="resultado" id="resPol"></div>
+    </div>
+
+    <!-- CÍRCULO -->
+    <div class="card">
+      <h2>⚪ Círculo</h2>
+      <div class="formula">Área = πr² | Perímetro = 2πr</div>
+
+      <label>Radio</label>
+      <input type="number" id="radio">
+
+      <button onclick="calcularCirculo()">Calcular</button>
+
+      <div class="resultado" id="resCirc"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    Desarrollado para estudiantes universitarios – Fundamentos Matemáticos
+  </footer>
+</div>
+
+<script>
+  function calcularTriangulo(){
+    let b = parseFloat(document.getElementById('baseTri').value);
+    let h = parseFloat(document.getElementById('alturaTri').value);
+    let l1 = parseFloat(document.getElementById('l1Tri').value);
+    let l2 = parseFloat(document.getElementById('l2Tri').value);
+    let l3 = parseFloat(document.getElementById('l3Tri').value);
+
+    let area = (b*h)/2;
+    let per = l1+l2+l3;
+
+    document.getElementById('resTri').innerHTML =
+      `Área: <b>${area.toFixed(2)}</b> u²<br>
+       Perímetro: <b>${per.toFixed(2)}</b> u`;
+  }
+
+  function calcularCuadrilatero(){
+    let largo = parseFloat(document.getElementById('largo').value);
+    let ancho = parseFloat(document.getElementById('ancho').value);
+
+    let area = largo*ancho;
+    let per = 2*(largo+ancho);
+
+    document.getElementById('resCuad').innerHTML =
+      `Área: <b>${area.toFixed(2)}</b> u²<br>
+       Perímetro: <b>${per.toFixed(2)}</b> u`;
+  }
+
+  function calcularPoligono(){
+    let n = parseFloat(document.getElementById('nLados').value);
+    let lado = parseFloat(document.getElementById('ladoPol').value);
+    let ap = parseFloat(document.getElementById('apotema').value);
+
+    let per = n*lado;
+    let area = (per*ap)/2;
+
+    document.getElementById('resPol').innerHTML =
+      `Perímetro: <b>${per.toFixed(2)}</b> u<br>
+       Área: <b>${area.toFixed(2)}</b> u²`;
+  }
+
+  function calcularCirculo(){
+    let r = parseFloat(document.getElementById('radio').value);
+
+    let area = Math.PI*r*r;
+    let per = 2*Math.PI*r;
+
+    document.getElementById('resCirc').innerHTML =
+      `Área: <b>${area.toFixed(2)}</b> u²<br>
+       Circunferencia: <b>${per.toFixed(2)}</b> u`;
+  }
+</script>
+
+</body>
+</html>
